@@ -8,7 +8,7 @@ const successPara = document.querySelector('#successPara');
 weatherForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const search = document.querySelector('input').value;
-    fetch("http://localhost:3000/weather?address="+search).then(res => {
+    fetch("/weather?address="+search).then(res => {
     res.json().then((data)=>{
         if(data.error){
             errorPara.innerHTML=data.error;
