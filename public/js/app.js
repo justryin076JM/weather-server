@@ -21,8 +21,10 @@ function degToCompass(num) {
 function patchCurrent(current) {
     document.getElementById('current').style.display = 'flex';
     const dayImageId = current.weather ? (current.weather.length ? (current.weather[0] ? (current.weather[0].icon) : null) : null) : null;
-    if (dayImageId)
+    if (dayImageId){
         document.getElementById('currentImage').src = "https://openweathermap.org/img/wn/" + dayImageId + "@2x.png";
+        document.getElementById('currentImage').title = current.weather[0].description;
+    }
     document.getElementById('currentDate').textContent = (new Date(current.dt * 1000)).toDateString();
     document.getElementById('sunrise').textContent = (new Date(current.sunrise * 1000)).toLocaleTimeString();
     document.getElementById('sunset').textContent = (new Date(current.sunset * 1000)).toLocaleTimeString();
@@ -63,8 +65,10 @@ weatherForm.addEventListener('submit', (event) => {
                     document.getElementById('dayCard' + number).style.display = 'block';
                     document.getElementById('dayTitle' + number).textContent = (new Date(item.dt * 1000)).toDateString();
                     const imgid = item.weather ? (item.weather.length ? (item.weather[0] ? (item.weather[0].icon) : null) : null) : null;
-                    if (imgid)
+                    if (imgid){
                         document.getElementById('dayImage' + number).src = "https://openweathermap.org/img/wn/" + imgid + "@2x.png";
+                        document.getElementById('dayImage' + number).title = item.weather[0].description;
+                    }
                     document.getElementById('dayText' + number).innerHTML = "<p> Day: " + toFahrenheit(item.temp.day) + "&#8457; / " + toCelcius(item.temp.day)
                         + "&#8451;</p><p> Eve: " + toFahrenheit(item.temp.eve) + "&#8457; / " + toCelcius(item.temp.eve)
                         + "&#8451;</p><p> Max: " + toFahrenheit(item.temp.max) + "&#8457; / " + toCelcius(item.temp.max)
