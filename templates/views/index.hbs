@@ -1,19 +1,519 @@
 <!DOCTYPE html>
 <html>
-    {{>htmlhead}}
-    <body>
-        {{>header}}
-        <form>
-            <div class="col-m-12" style="padding: 2vw;">
-            <input type='text' style="min-width:80vw" placeholder="Enter a location to search for">&nbsp;
-            <button class="btn btn-success" type="submit">Search</button>
+{{>htmlhead}}
+
+<body>
+    <div style="background-color: #eeeeee;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: auto; margin-right: auto;">
+            <h1 style="padding: 3vh;color:#50bff3">Weather Report</h1>
+        </div>
+    </div>
+    <div>
+        <div style="margin: 4vh auto;max-width:85vw;">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter the location to search"
+                        aria-label="Enter the location to search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+            <div id="errorDiv" style="display: none;">
+                <p id="errorPara" style="color: red;"></p>
             </div>
-        </form>
-        <p id='errorPara' style="color: red;"></p>
-        <p id='successPara' style="color: green;"></p>
-        <img src="https://f.v1.n0.cdn.getcloudapp.com/items/0L2l2K3f3e1H2o1O3p0f/robot.png">
-        
+        </div>
+    </div>
+    <div id= 'current' class="row" style="margin: 15px; display: none;padding-bottom: 15px;">
+        <div class="col-lg-3 col-md-2">
+            <img id="currentImage" src="https://openweathermap.org/img/wn/04n@2x.png" alt="Current weather image"
+                width="100%">
+        </div>
+        <div id="currentDetails" class="col-md-6">
+            <div class="panel panel-default">
+                <table class="table table-dark table-borderless">
+                    <tbody>
+                        <tr class="bg-info">
+                            <td colspan="4" id="currentDate" style="font-weight: bold; font-size: 1.5rem;">Cell</td>
+                        </tr>
+                        <tr class="bg-info">
+                            <td>Sunrise</td>
+                            <td id="sunrise"></td>
+                            <td>Sunset</td>
+                            <td id="sunset"></td>
+                        </tr>
+                        <tr class="bg-info">
+                            <td>Temp</td>
+                            <td id="temp"></td>
+                            <td>Feels like</td>
+                            <td id="feels"></td>
+                        </tr>
+                        <tr class="bg-info">
+                            <td>Pressure (hpa)</td>
+                            <td id="pressure"></td>
+                            <td>Humidity (%)</td>
+                            <td id="humidity"></td>
+                        </tr>
+                        <tr class="bg-info">
+                            <td>Clouds (%)</td>
+                            <td id="clouds"></td>
+                            <td>Wind</td>
+                            <td id="winds"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4">
+            <div id="next24Hours" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour1details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour2details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour3details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour4details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour5details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour6details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour7details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour8details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour9details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour10details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour11details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour12details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour13details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour14details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour15details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour16details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour17details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour18details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour19details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour20details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour21details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour22details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour23details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour24details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour25details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour26details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour27details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour28details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour29details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour30details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour31details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour32details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour33details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour34details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour35details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour36details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour37details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour38details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour39details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour40details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour41details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour42details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour43details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour44details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour45details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour46details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour47details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p id="hour48details" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#next24Hours" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#next24Hours" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id='dailyCards' class="row" style="margin: 15px; display: none;">
+        <div id='dayCard1' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-dark text-white">
+                <img class="card-img-top" id="dayImage1" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle1' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText1">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard2' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-info text-white">
+                <img class="card-img-top" id="dayImage2" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle2' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText2">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard3' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card  bg-secondary text-white">
+                <img class="card-img-top" id="dayImage3" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle3' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText3">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard4' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-warning text-white">
+                <img class="card-img-top" id="dayImage4" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle4' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText4">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard5' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-dark text-white">
+                <img class="card-img-top" id="dayImage5" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle5' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText5">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard6' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-info text-white">
+                <img class="card-img-top" id="dayImage6" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle6' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText6">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard7' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-secondary text-white">
+                <img class="card-img-top" id="dayImage7" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle7' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText7">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+        <div id='dayCard8' class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom: 15px;">
+            <div class="card bg-warning text-white">
+                <img class="card-img-top" id="dayImage8" src="https://openweathermap.org/img/wn/04n@2x.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 id='dayTitle8' class="card-title">Card title</h5>
+                    <p class="card-text" style="padding:2vw " id="dayText8">Some quick example text to build on the card
+                        title and make up the bulk of the card's
+                        content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src='./js/app.js'></script>
-        {{>footer}}
-    </body>
+</body>
+
 </html>

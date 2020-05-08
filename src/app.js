@@ -18,9 +18,8 @@ hbs.registerPartials(partialsPath);
 
 //setting up static directory to serve
 app.use(express.static(publicDir));
-
-app.use('/help',express.static(publicDir));
-app.use('/about', express.static(publicDir));
+//app.use('/help',express.static(publicDir));
+//app.use('/about', express.static(publicDir));
 
 app.get('',(req,res) => {
     res.render('index',{
@@ -29,7 +28,7 @@ app.get('',(req,res) => {
         pageName: 'Home'
     });
 });
-
+/*
 app.get('/about',(req,res) => {
     res.render('about',{
         title:'Weather App',
@@ -45,7 +44,7 @@ app.get('/help',(req,res) => {
         pageName : 'Help'
     });
 });
-
+*/
 /*
 app.get('',(req, res) => {
     res.send('Hello Express');
@@ -87,6 +86,7 @@ app.get('/weather', (req, res) => {
     */
 });
 
+/*
 app.get('/*',(req,res) => {
     res.render('help',{
         title:'Weather App',
@@ -94,6 +94,7 @@ app.get('/*',(req,res) => {
         pageName: 'Help'
     });
 });
+*/
 
 app.listen(port, () => {
     console.log('Server is up on '+port);
